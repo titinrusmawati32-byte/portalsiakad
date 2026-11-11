@@ -7,7 +7,7 @@
 var CONFIG = {
   // 1. TAUTAN WEB APP GOOGLE APPS SCRIPT (API BACKEND & GOOGLE SHEETS)
   // Ganti dengan URL Deployment Web App Anda setelah menjalankan 'Deploy as Web App' di GAS:
-  GAS_API_URL: "",
+  GAS_API_URL: "https://script.google.com/macros/s/AKfycbxImCbna1LZD5ViapLg6G_Y-cEk0ek8Jj1qd0N-jVd0nLSwdMMsPLaivF5jfUdw_-1SCg/exec",
 
   // 2. SAKLAR MODE PREVIEW (OFFLINE TEST DATA)
   // Set true untuk pengujian cepat di browser dengan data simulasi.
