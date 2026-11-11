@@ -1,0 +1,384 @@
+<!-- ==========================================================================
+     PORTAL ADMINISTRASI GURU SD - LOGIN & REGISTRATION COMPONENT
+     ========================================================================== -->
+<div id="view-login" class="login-wrapper" style="display: none;">
+  <div class="login-card-container">
+    <div class="login-hero-side">
+      <div class="login-brand-header">
+        <div class="login-logo-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+          </svg>
+        </div>
+        <div>
+          <h2>Portal Administrasi Guru SD</h2>
+          <p>Kecamatan Ambulu, Kabupaten Jember</p>
+        </div>
+      </div>
+
+      <div class="login-illustration-area">
+        <svg viewBox="0 0 400 240" fill="none" style="width: 100%; max-width: 320px;">
+          <rect x="30" y="70" width="340" height="150" rx="16" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="2"/>
+          <path d="M20 75L200 15L380 75" stroke="#1E40AF" stroke-width="6" stroke-linecap="round"/>
+          <circle cx="200" cy="120" r="35" fill="#3B82F6" opacity="0.2"/>
+          <path d="M190 120L198 128L215 110" stroke="#2563EB" stroke-width="4" stroke-linecap="round"/>
+          <rect x="70" y="100" width="80" height="12" rx="6" fill="#93C5FD"/>
+          <rect x="70" y="125" width="60" height="10" rx="5" fill="#BFDBFE"/>
+          <rect x="250" y="100" width="80" height="12" rx="6" fill="#93C5FD"/>
+          <rect x="250" y="125" width="60" height="10" rx="5" fill="#BFDBFE"/>
+        </svg>
+      </div>
+
+      <div class="login-info-box">
+        <h4>Satu Portal untuk Seluruh Administrasi</h4>
+        <p>Kelola kelas, presensi QR code, jurnal harian mengajar, asesmen formatif-sumatif, hingga penyusunan rapor siswa secara mandiri dan aman.</p>
+      </div>
+    </div>
+
+    <div class="login-form-side">
+      <div class="login-form-header">
+        <h3>Selamat Datang</h3>
+        <p>Silakan masuk menggunakan akun Google Anda untuk mengakses portal.</p>
+      </div>
+
+      <div class="auth-buttons-group">
+        <!-- Google Sign In Button -->
+        <button id="btn-google-login" class="btn-google-auth" onclick="handleGoogleSignIn()">
+          <svg viewBox="0 0 24 24" width="20" height="20">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+          </svg>
+          <span>Masuk dengan Google</span>
+        </button>
+
+        <div class="divider-text">
+          <span>atau Pengujian Cepat Mode Preview</span>
+        </div>
+
+        <!-- Fast Demo / Preview Buttons -->
+        <div class="preview-mode-buttons">
+          <button class="btn-demo-teacher" onclick="enterMockMode('TEACHER')">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+            Masuk sebagai Guru (Budi Santoso)
+          </button>
+          
+          <button class="btn-demo-admin" onclick="enterMockMode('ADMIN')">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+            Masuk sebagai Super Admin
+          </button>
+        </div>
+      </div>
+
+      <div class="login-footer-security">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+        <span>Data akademik Anda terenkripsi dan terisolasi penuh secara server-side.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==========================================================================
+     PROFILE COMPLETION MODAL (Guru Baru)
+     ========================================================================== -->
+<div id="modal-complete-profile" class="modal-overlay">
+  <div class="modal-card">
+    <div class="dashboard-card-header">
+      <div class="card-title-group">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="8.5" cy="7" r="4"/>
+          <polyline points="17 11 19 13 23 9"/>
+        </svg>
+        <h3>Lengkapi Profil Guru</h3>
+      </div>
+    </div>
+
+    <p style="font-size: 0.85rem; color: var(--text-muted);">
+      Sebelum akun Anda diverifikasi oleh Super Admin, mohon lengkapi data identitas dan sekolah Anda berikut:
+    </p>
+
+    <form id="form-complete-profile" onsubmit="submitTeacherProfile(event)">
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        <div>
+          <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">Nama Lengkap & Gelar</label>
+          <input type="text" id="reg-full-name" required class="form-input" placeholder="Contoh: Budi Santoso, S.Pd.">
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div>
+            <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">NIP (Opsional)</label>
+            <input type="text" id="reg-nip" class="form-input" placeholder="19850101XXXXXXXXXX">
+          </div>
+          <div>
+            <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">No. WhatsApp / HP</label>
+            <input type="tel" id="reg-phone" class="form-input" placeholder="0812XXXXXXXX">
+          </div>
+        </div>
+
+        <div>
+          <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">Jenis Guru</label>
+          <select id="reg-teacher-type" class="form-input">
+            <option value="CLASS_TEACHER">Guru Kelas (Wali Kelas)</option>
+            <option value="SUBJECT_TEACHER">Guru Mata Pelajaran</option>
+          </select>
+        </div>
+
+        <div>
+          <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">Nama Sekolah Dasar</label>
+          <input type="text" id="reg-school-name" required class="form-input" placeholder="Contoh: SD NEGERI SUMBEREJO 04">
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div>
+            <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">NPSN Sekolah (8 Digit)</label>
+            <input type="text" id="reg-npsn" required maxlength="8" class="form-input" placeholder="Contoh: 20523891">
+          </div>
+          <div>
+            <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">Kecamatan</label>
+            <input type="text" id="reg-kecamatan" value="Ambulu" class="form-input">
+          </div>
+        </div>
+
+        <div>
+          <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">Kabupaten</label>
+          <input type="text" id="reg-kabupaten" value="Jember" class="form-input">
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
+          <button type="submit" class="btn-primary" id="btn-save-profile">
+            Ajukan Verifikasi Akun
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<style>
+.login-wrapper {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: var(--bg-app);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 1000;
+}
+
+.login-card-container {
+  display: flex;
+  width: 100%;
+  max-width: 900px;
+  background: var(--bg-card);
+  border-radius: var(--border-radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-dropdown);
+  border: 1px solid var(--border-color);
+}
+
+.login-hero-side {
+  flex: 1.1;
+  background: linear-gradient(145deg, #142B4A 0%, #0F2038 100%);
+  color: #FFFFFF;
+  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.login-brand-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.login-logo-box {
+  width: 48px;
+  height: 48px;
+  background: #FFFFFF;
+  border-radius: var(--border-radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-brand-header h2 {
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.login-brand-header p {
+  font-size: 0.78rem;
+  color: #93C5FD;
+}
+
+.login-illustration-area {
+  display: flex;
+  justify-content: center;
+  margin: 24px 0;
+}
+
+.login-info-box h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: #BAE6FD;
+}
+
+.login-info-box p {
+  font-size: 0.82rem;
+  color: #CBD5E1;
+  line-height: 1.45;
+}
+
+.login-form-side {
+  flex: 1;
+  padding: 48px 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.login-form-header h3 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 6px;
+}
+
+.login-form-header p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+
+.auth-buttons-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.btn-google-auth {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 20px;
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: var(--border-radius-md);
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: #334155;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-google-auth:hover {
+  background: #F8FAFC;
+  border-color: #94A3B8;
+  transform: translateY(-1px);
+}
+
+.divider-text {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: var(--text-subtle);
+  font-size: 0.75rem;
+  margin: 12px 0 6px 0;
+}
+
+.divider-text::before, .divider-text::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.divider-text span {
+  padding: 0 10px;
+}
+
+.preview-mode-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.btn-demo-teacher {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #EFF6FF;
+  color: #2563EB;
+  border: 1px solid #BFDBFE;
+  padding: 10px;
+  border-radius: var(--border-radius-md);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-demo-admin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #FEF3C7;
+  color: #B45309;
+  border: 1px solid #FDE68A;
+  padding: 10px;
+  border-radius: var(--border-radius-md);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.login-footer-security {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.74rem;
+  color: var(--text-subtle);
+  margin-top: 24px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  background: var(--bg-input);
+  color: var(--text-main);
+  outline: none;
+}
+
+.form-input:focus {
+  border-color: var(--blue-primary);
+}
+
+@media (max-width: 768px) {
+  .login-card-container {
+    flex-direction: column;
+  }
+  .login-hero-side {
+    display: none;
+  }
+  .login-form-side {
+    padding: 32px 24px;
+  }
+}
+</style>

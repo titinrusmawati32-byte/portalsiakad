@@ -1,0 +1,923 @@
+<!-- ==========================================================================
+     PORTAL ADMINISTRASI GURU SD - TEACHER PORTAL VIEWS
+     Sesuai Desain Referensi Resmi: Hero Banner, 5 KPI, Grafik Kehadiran, Jadwal, Akses Cepat
+     ========================================================================== -->
+<div id="portal-teacher" style="display: none; width: 100%;">
+
+  <!-- ==========================================================================
+       SUB-VIEW: DASHBOARD UTAMA GURU (Sesuai Desain Referensi Gambar)
+       ========================================================================== -->
+  <div id="teacher-view-dashboard" class="content-body teacher-subview">
+    
+    <!-- Hero Banner Selamat Datang -->
+    <div class="hero-welcome-card">
+      <div class="hero-left-section">
+        <!-- Ilustrasi Guru Berseragam Dinas Khaki -->
+        <div class="teacher-illustration">
+          <svg viewBox="0 0 100 100" fill="none" style="width: 100%; height: 100%;">
+            <circle cx="50" cy="50" r="48" fill="#FDE68A"/>
+            <!-- Kepala & Wajah -->
+            <circle cx="50" cy="38" r="22" fill="#FCD34D"/>
+            <!-- Rambut Rapi -->
+            <path d="M30 35C30 22 40 16 50 16C60 16 70 22 70 35C70 26 62 20 50 20C38 20 30 26 30 35Z" fill="#1E293B"/>
+            <!-- Kacamata & Senyum Ramah -->
+            <rect x="37" y="32" width="10" height="8" rx="2" stroke="#1E293B" stroke-width="2" fill="none"/>
+            <rect x="53" y="32" width="10" height="8" rx="2" stroke="#1E293B" stroke-width="2" fill="none"/>
+            <path d="M47 36H53" stroke="#1E293B" stroke-width="2"/>
+            <path d="M44 47C47 50 53 50 56 47" stroke="#92400E" stroke-width="2" stroke-linecap="round"/>
+            <!-- Badan / Seragam Khaki Guru -->
+            <path d="M25 80C25 64 35 60 50 60C65 60 75 64 75 80V98H25V80Z" fill="#D97706"/>
+            <!-- Kerah Baju & Dasi / Lencana -->
+            <path d="M45 60L50 72L55 60" fill="#F59E0B"/>
+            <rect x="36" y="68" width="6" height="4" rx="1" fill="#FEF3C7"/>
+            <!-- Buku Biru yang Dipegang -->
+            <rect x="62" y="68" width="18" height="24" rx="3" fill="#2563EB" transform="rotate(-10 62 68)"/>
+            <rect x="65" y="72" width="12" height="16" rx="1" fill="#FFFFFF" transform="rotate(-10 65 72)"/>
+          </svg>
+        </div>
+
+        <div class="hero-text-content">
+          <h1 id="hero-greeting">Selamat Pagi, Budi Santoso!</h1>
+          <p>Semoga kegiatan pembelajaran hari ini berjalan lancar.</p>
+          <div class="school-class-pill">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 21h18"/>
+              <path d="M5 21V7l7-4 7 4v14"/>
+              <path d="M9 10h1"/>
+              <path d="M14 10h1"/>
+              <path d="M9 14h1"/>
+              <path d="M14 14h1"/>
+            </svg>
+            <span id="hero-school-name">SD NEGERI SUMBEREJO 04</span>
+            <span style="opacity: 0.6;">|</span>
+            <span>Kelas yang diampu:</span>
+            <span class="tag-class" id="hero-primary-class">IV A</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ilustrasi Gedung SD Negeri & Bendera Merah Putih -->
+      <div class="hero-right-illustration">
+        <svg viewBox="0 0 320 140" fill="none" style="height: 100%;">
+          <!-- Tiang Bendera & Merah Putih -->
+          <line x1="80" y1="15" x2="80" y2="130" stroke="#94A3B8" stroke-width="3"/>
+          <rect x="82" y="18" width="36" height="12" fill="#EF4444"/>
+          <rect x="82" y="30" width="36" height="12" fill="#FFFFFF"/>
+          <circle cx="80" cy="15" r="3" fill="#F59E0B"/>
+          <!-- Gedung Sekolah Merah Bata -->
+          <rect x="130" y="55" width="170" height="75" rx="4" fill="#FDE68A" stroke="#F59E0B" stroke-width="2"/>
+          <!-- Atap Genteng Merah -->
+          <polygon points="120,55 215,15 310,55" fill="#DC2626"/>
+          <!-- Pintu & Jendela -->
+          <rect x="200" y="90" width="30" height="40" fill="#92400E"/>
+          <rect x="150" y="70" width="24" height="20" rx="2" fill="#BAE6FD" stroke="#0284C7" stroke-width="1.5"/>
+          <rect x="255" y="70" width="24" height="20" rx="2" fill="#BAE6FD" stroke="#0284C7" stroke-width="1.5"/>
+          <!-- Pohon Hijau -->
+          <circle cx="45" cy="85" r="30" fill="#22C55E"/>
+          <circle cx="65" cy="70" r="25" fill="#16A34A"/>
+          <rect x="42" y="95" width="8" height="35" fill="#78350F"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- 5 Quick Metrics Cards (Top KPI Bar) -->
+    <div class="metrics-grid-5">
+      <!-- 1. Jumlah Siswa -->
+      <div class="metric-card" onclick="switchTeacherMenu('students')">
+        <div class="metric-icon-circle blue">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </div>
+        <div class="metric-data">
+          <h3 id="stat-total-students">28</h3>
+          <p>Jumlah Siswa</p>
+        </div>
+        <svg class="arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </div>
+
+      <!-- 2. Hadir Hari Ini -->
+      <div class="metric-card" onclick="switchTeacherMenu('attendance')">
+        <div class="metric-icon-circle green">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+            <polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+        </div>
+        <div class="metric-data">
+          <h3 id="stat-present-today">26</h3>
+          <p>Hadir Hari Ini</p>
+        </div>
+        <svg class="arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </div>
+
+      <!-- 3. Kelas yang Diampu -->
+      <div class="metric-card" onclick="switchTeacherMenu('classes')">
+        <div class="metric-icon-circle purple">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+            <line x1="8" y1="21" x2="16" y2="21"/>
+            <line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+        </div>
+        <div class="metric-data">
+          <h3 id="stat-classes-count">4</h3>
+          <p>Kelas yang Diampu</p>
+        </div>
+        <svg class="arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </div>
+
+      <!-- 4. Perangkat Ajar -->
+      <div class="metric-card" onclick="switchTeacherMenu('resources')">
+        <div class="metric-icon-circle orange">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+          </svg>
+        </div>
+        <div class="metric-data">
+          <h3 id="stat-resources-count">12</h3>
+          <p>Perangkat Ajar</p>
+        </div>
+        <svg class="arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </div>
+
+      <!-- 5. Administrasi Perlu Diselesaikan -->
+      <div class="metric-card" onclick="switchTeacherMenu('journals')">
+        <div class="metric-icon-circle red">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+        </div>
+        <div class="metric-data">
+          <h3 id="stat-pending-admin">3</h3>
+          <p>Administrasi Perlu Diselesaikan</p>
+        </div>
+        <svg class="arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- 3-Column Middle Content Row -->
+    <div class="dashboard-grid-row">
+      <!-- Kolom Kiri: Grafik Kehadiran Siswa -->
+      <div class="dashboard-card">
+        <div class="dashboard-card-header">
+          <div class="card-title-group">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="20" x2="18" y2="10"/>
+              <line x1="12" y1="20" x2="12" y2="4"/>
+              <line x1="6" y1="20" x2="6" y2="14"/>
+            </svg>
+            <h3>Grafik Kehadiran Siswa</h3>
+          </div>
+          <select class="pill-select-filter" onchange="filterAttendanceChart(this.value)">
+            <option value="7">7 Hari Terakhir</option>
+            <option value="30">30 Hari Terakhir</option>
+            <option value="semester">Semester Ini</option>
+          </select>
+        </div>
+
+        <div class="chart-container-box">
+          <span class="chart-peak-badge" id="chart-peak-text">96%</span>
+          <svg viewBox="0 0 450 160" style="width: 100%; height: 100%; overflow: visible;" id="svg-attendance-chart">
+            <defs>
+              <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#2563EB" stop-opacity="0.35"/>
+                <stop offset="100%" stop-color="#2563EB" stop-opacity="0.0"/>
+              </linearGradient>
+            </defs>
+            <!-- Garis Kisi Horizontal -->
+            <line x1="40" y1="20" x2="430" y2="20" stroke="var(--border-light)" stroke-dasharray="3 3"/>
+            <text x="5" y="24" fill="var(--text-subtle)" font-size="10">100%</text>
+
+            <line x1="40" y1="60" x2="430" y2="60" stroke="var(--border-light)" stroke-dasharray="3 3"/>
+            <text x="12" y="64" fill="var(--text-subtle)" font-size="10">75%</text>
+
+            <line x1="40" y1="100" x2="430" y2="100" stroke="var(--border-light)" stroke-dasharray="3 3"/>
+            <text x="12" y="104" fill="var(--text-subtle)" font-size="10">50%</text>
+
+            <line x1="40" y1="140" x2="430" y2="140" stroke="var(--border-color)"/>
+            <text x="18" y="144" fill="var(--text-subtle)" font-size="10">0%</text>
+
+            <!-- Area Fill -->
+            <polygon points="50,65 110,48 170,38 230,44 290,40 350,40 410,25 410,140 50,140" fill="url(#chartGradient)"/>
+
+            <!-- Garis Tren -->
+            <polyline points="50,65 110,48 170,38 230,44 290,40 350,40 410,25" fill="none" stroke="#2563EB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+            <!-- Titik Koordinat -->
+            <circle cx="50" cy="65" r="4" fill="#2563EB"/>
+            <circle cx="110" cy="48" r="4" fill="#2563EB"/>
+            <circle cx="170" cy="38" r="4" fill="#2563EB"/>
+            <circle cx="230" cy="44" r="4" fill="#2563EB"/>
+            <circle cx="290" cy="40" r="4" fill="#2563EB"/>
+            <circle cx="350" cy="40" r="4" fill="#2563EB"/>
+            <circle cx="410" cy="25" r="6" fill="#2563EB" stroke="#FFFFFF" stroke-width="2"/>
+
+            <!-- Label Hari Bawah -->
+            <text x="40" y="156" fill="var(--text-muted)" font-size="10">Sen 3/11</text>
+            <text x="100" y="156" fill="var(--text-muted)" font-size="10">Sel 4/11</text>
+            <text x="160" y="156" fill="var(--text-muted)" font-size="10">Rab 5/11</text>
+            <text x="220" y="156" fill="var(--text-muted)" font-size="10">Kam 6/11</text>
+            <text x="280" y="156" fill="var(--text-muted)" font-size="10">Jum 7/11</text>
+            <text x="340" y="156" fill="var(--text-muted)" font-size="10">Sab 8/11</text>
+            <text x="400" y="156" fill="var(--text-muted)" font-size="10">Min 9/11</text>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Kolom Tengah: Jadwal Pembelajaran Hari Ini -->
+      <div class="dashboard-card">
+        <div class="dashboard-card-header">
+          <div class="card-title-group">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            <h3>Jadwal Pembelajaran Hari Ini</h3>
+          </div>
+          <button class="card-action-btn" onclick="switchTeacherMenu('schedules')">
+            <span>Lihat Lengkap</span>
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="5" y1="12" x2="19" y2="12"/>
+              <polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </button>
+        </div>
+
+        <table class="schedule-table">
+          <thead>
+            <tr>
+              <th>Jam</th>
+              <th>Kelas</th>
+              <th>Mata Pelajaran</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="today-schedules-tbody">
+            <tr>
+              <td>07.00 - 07.35</td>
+              <td><strong>IV A</strong></td>
+              <td>Bahasa Indonesia</td>
+              <td><span class="status-pill success">✔ Selesai</span></td>
+            </tr>
+            <tr>
+              <td>08.00 - 08.35</td>
+              <td><strong>IV A</strong></td>
+              <td>Matematika</td>
+              <td><span class="status-pill success">✔ Selesai</span></td>
+            </tr>
+            <tr>
+              <td>09.00 - 09.35</td>
+              <td><strong>IV A</strong></td>
+              <td>IPAS</td>
+              <td><span class="status-pill running">⏱ Berlangsung</span></td>
+            </tr>
+            <tr>
+              <td>10.00 - 10.35</td>
+              <td><strong>IV A</strong></td>
+              <td>PPKn</td>
+              <td><span class="status-pill waiting">Menunggu</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Kolom Kanan: Pengumuman & Pengingat Administrasi -->
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <!-- Card Pengumuman -->
+        <div class="dashboard-card" style="padding: 16px 18px;">
+          <div class="dashboard-card-header" style="margin-bottom: 12px;">
+            <div class="card-title-group">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+              </svg>
+              <h3>Pengumuman</h3>
+            </div>
+            <button class="card-action-btn" onclick="showAnnouncementModal()">Lihat Semua &rarr;</button>
+          </div>
+
+          <div class="announcement-item">
+            <div class="announcement-thumb" style="background: linear-gradient(135deg, #1E3A8A 0%, #3B82F6 100%); display: flex; align-items: center; justify-content: center; color: #FFFFFF;">
+              <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M3 21h18M5 21V7l7-4 7 4v14"/>
+              </svg>
+            </div>
+            <h4 id="announcement-card-title">Selamat Datang di Portal Administrasi Guru SD</h4>
+            <p id="announcement-card-snippet">Mari bersama wujudkan pembelajaran yang menyenangkan dan bermakna.</p>
+            <div class="announcement-date">
+              <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+              </svg>
+              <span id="announcement-card-date">9 November 2026</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card Peringatan Administrasi -->
+        <div class="dashboard-card" style="padding: 16px 18px;">
+          <div class="dashboard-card-header" style="margin-bottom: 12px;">
+            <div class="card-title-group">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+              </svg>
+              <h3>Peringatan Administrasi</h3>
+            </div>
+          </div>
+
+          <div class="reminders-list" id="reminders-list-container">
+            <div class="reminder-row" onclick="switchTeacherMenu('journals')">
+              <div class="reminder-content">
+                <div class="reminder-dot yellow"></div>
+                <span>Jurnal Mengajar belum diisi (Kelas IV A)</span>
+              </div>
+              <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+            <div class="reminder-row" onclick="switchTeacherMenu('grades')">
+              <div class="reminder-content">
+                <div class="reminder-dot red"></div>
+                <span>Penilaian belum lengkap (Kelas IV A - MTK)</span>
+              </div>
+              <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+            <div class="reminder-row" onclick="switchTeacherMenu('reports')">
+              <div class="reminder-content">
+                <div class="reminder-dot blue"></div>
+                <span>Laporan perkembangan siswa (Perlu diperbarui)</span>
+              </div>
+              <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+          </div>
+
+          <!-- Banner Siswa Ceria -->
+          <div class="kids-banner-card">
+            <div>
+              <h4>Semangat Mengajar!</h4>
+              <p style="font-size: 0.72rem; opacity: 0.9;">Bimbing murid dengan sepenuh hati</p>
+            </div>
+            <svg viewBox="0 0 60 40" fill="none" style="height: 38px;">
+              <circle cx="20" cy="15" r="10" fill="#FDE68A"/>
+              <circle cx="45" cy="18" r="9" fill="#FDE68A"/>
+              <path d="M10 38C10 30 15 28 20 28C25 28 30 30 30 38" fill="#FFFFFF"/>
+              <path d="M36 38C36 31 40 29 45 29C50 29 54 31 54 38" fill="#EF4444"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Row: Aktivitas Terbaru & Akses Cepat 6-Grid -->
+    <div class="bottom-grid-row">
+      <!-- Aktivitas Terbaru -->
+      <div class="dashboard-card">
+        <div class="dashboard-card-header">
+          <div class="card-title-group">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+            <h3>Aktivitas Terbaru</h3>
+          </div>
+          <button class="card-action-btn" onclick="switchTeacherMenu('journals')">Lihat Semua &rarr;</button>
+        </div>
+
+        <div class="timeline-list" id="timeline-activities-container">
+          <div class="timeline-entry">
+            <div class="timeline-icon-badge green">✔</div>
+            <div class="timeline-details">
+              <h5>Presensi berhasil - Kelas IV A</h5>
+              <span>Hari ini, 08:15</span>
+            </div>
+            <span class="timeline-tag presensi">Presensi</span>
+          </div>
+
+          <div class="timeline-entry">
+            <div class="timeline-icon-badge blue">📄</div>
+            <div class="timeline-details">
+              <h5>Input nilai Matematika - Kelas IV A</h5>
+              <span>Hari ini, 07:50</span>
+            </div>
+            <span class="timeline-tag nilai">Nilai</span>
+          </div>
+
+          <div class="timeline-entry">
+            <div class="timeline-icon-badge purple">☁</div>
+            <div class="timeline-details">
+              <h5>Upload Modul Ajar IPAS Bab 2</h5>
+              <span>Hari ini, 07:30</span>
+            </div>
+            <span class="timeline-tag pembelajaran">Pembelajaran</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Akses Cepat 6-Grid -->
+      <div class="dashboard-card">
+        <div class="dashboard-card-header">
+          <div class="card-title-group">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#EAB308" stroke-width="2">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+            </svg>
+            <h3>Akses Cepat</h3>
+          </div>
+        </div>
+
+        <div class="quick-access-grid">
+          <!-- 1. Presensi QR Code -->
+          <div class="quick-action-box" onclick="openQrSessionModal()">
+            <div class="quick-action-icon cyan">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="7" height="7"/>
+                <rect x="14" y="3" width="7" height="7"/>
+                <rect x="14" y="14" width="7" height="7"/>
+                <rect x="3" y="14" width="7" height="7"/>
+              </svg>
+            </div>
+            <span>Presensi QR Code</span>
+          </div>
+
+          <!-- 2. Presensi Manual -->
+          <div class="quick-action-box" onclick="switchTeacherMenu('attendance')">
+            <div class="quick-action-icon blue">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 11l3 3L22 4"/>
+                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+              </svg>
+            </div>
+            <span>Presensi Manual</span>
+          </div>
+
+          <!-- 3. Input Nilai -->
+          <div class="quick-action-box" onclick="switchTeacherMenu('grades')">
+            <div class="quick-action-icon indigo">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 20h9"/>
+                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+              </svg>
+            </div>
+            <span>Input Nilai</span>
+          </div>
+
+          <!-- 4. Jurnal Mengajar -->
+          <div class="quick-action-box" onclick="switchTeacherMenu('journals')">
+            <div class="quick-action-icon purple">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+              </svg>
+            </div>
+            <span>Jurnal Mengajar</span>
+          </div>
+
+          <!-- 5. Perangkat Ajar -->
+          <div class="quick-action-box" onclick="switchTeacherMenu('resources')">
+            <div class="quick-action-icon orange">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="16" y1="13" x2="8" y2="13"/>
+                <line x1="16" y1="17" x2="8" y2="17"/>
+              </svg>
+            </div>
+            <span>Perangkat Ajar</span>
+          </div>
+
+          <!-- 6. Laporan -->
+          <div class="quick-action-box" onclick="switchTeacherMenu('reports')">
+            <div class="quick-action-icon teal">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="20" x2="18" y2="10"/>
+                <line x1="12" y1="20" x2="12" y2="4"/>
+                <line x1="6" y1="20" x2="6" y2="14"/>
+              </svg>
+            </div>
+            <span>Laporan Rapor</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       SUB-VIEW: DATA KELAS GURU
+       ========================================================================== -->
+  <div id="teacher-view-classes" class="content-body teacher-subview" style="display: none;">
+    <div class="dashboard-card">
+      <div class="dashboard-card-header">
+        <div class="card-title-group">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+            <line x1="8" y1="21" x2="16" y2="21"/>
+            <line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+          <h3>Manajemen Data Kelas</h3>
+        </div>
+        <button class="btn-primary" onclick="openCreateClassModal()">+ Tambah Kelas Baru</button>
+      </div>
+
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
+        Setiap guru mengelola kelas secara mandiri. Data kelas dan siswa Anda terisolasi aman dan tidak dapat dilihat oleh guru lain.
+      </p>
+
+      <div class="data-table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Nama Kelas</th>
+              <th>Tingkat</th>
+              <th>Tahun Pelajaran</th>
+              <th>Semester</th>
+              <th>Tipe</th>
+              <th>Status</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="table-classes-tbody">
+            <!-- Diisi dinamis -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       SUB-VIEW: DATA SISWA GURU
+       ========================================================================== -->
+  <div id="teacher-view-students" class="content-body teacher-subview" style="display: none;">
+    <div class="dashboard-card">
+      <div class="dashboard-card-header">
+        <div class="card-title-group">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+          </svg>
+          <h3>Data Induk Siswa</h3>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button class="btn-secondary" onclick="openExcelImportModal()">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Impor Excel
+          </button>
+          <button class="btn-primary" onclick="openAddStudentModal()">+ Tambah Siswa</button>
+        </div>
+      </div>
+
+      <!-- Filter Kelas & Search -->
+      <div style="display: flex; gap: 14px; margin-bottom: 16px; flex-wrap: wrap;">
+        <select id="filter-student-class" class="form-input" style="max-width: 200px;" onchange="loadStudentsTable(this.value)">
+          <option value="">Semua Kelas</option>
+        </select>
+        <input type="text" id="search-student-input" class="form-input" placeholder="Cari nama atau NIS siswa..." onkeyup="filterStudentsSearch(this.value)" style="max-width: 300px;">
+      </div>
+
+      <div class="data-table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>NIS</th>
+              <th>NISN</th>
+              <th>Nama Lengkap Siswa</th>
+              <th>L/P</th>
+              <th>Tanggal Lahir</th>
+              <th>Status</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="table-students-tbody">
+            <!-- Diisi dinamis -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       SUB-VIEW: PRESENSI SISWA
+       ========================================================================== -->
+  <div id="teacher-view-attendance" class="content-body teacher-subview" style="display: none;">
+    <div class="dashboard-card">
+      <div class="dashboard-card-header">
+        <div class="card-title-group">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+            <polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+          <h3>Presensi Siswa Harian</h3>
+        </div>
+        <button class="btn-primary" onclick="openQrSessionModal()">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"/>
+            <rect x="14" y="3" width="7" height="7"/>
+            <rect x="14" y="14" width="7" height="7"/>
+            <rect x="3" y="14" width="7" height="7"/>
+          </svg>
+          Buka Sesi Presensi QR
+        </button>
+      </div>
+
+      <!-- Filter Presensi -->
+      <div style="display: flex; gap: 14px; margin-bottom: 16px; align-items: center; flex-wrap: wrap;">
+        <div>
+          <label style="font-size: 0.78rem; font-weight: 600; display: block; margin-bottom: 4px;">Pilih Kelas:</label>
+          <select id="attendance-select-class" class="form-input" onchange="loadAttendanceTable()"></select>
+        </div>
+        <div>
+          <label style="font-size: 0.78rem; font-weight: 600; display: block; margin-bottom: 4px;">Tanggal:</label>
+          <input type="date" id="attendance-date-input" class="form-input" onchange="loadAttendanceTable()">
+        </div>
+        <div style="margin-top: 20px;">
+          <button class="btn-primary" onclick="saveManualAttendanceBatch()">Simpan Perubahan Presensi</button>
+        </div>
+      </div>
+
+      <!-- Ringkasan Kehadiran Hari Ini -->
+      <div style="display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap;">
+        <span class="status-pill success" id="att-badge-present">Hadir: 0</span>
+        <span class="status-pill running" id="att-badge-permission">Izin: 0</span>
+        <span class="status-pill waiting" id="att-badge-sick">Sakit: 0</span>
+        <span class="status-pill" style="background:#FEE2E2; color:#DC2626;" id="att-badge-absent">Alpa: 0</span>
+      </div>
+
+      <div class="data-table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>NIS</th>
+              <th>Nama Siswa</th>
+              <th>Status Kehadiran</th>
+              <th>Metode</th>
+              <th>Catatan / Keterangan</th>
+            </tr>
+          </thead>
+          <tbody id="table-attendance-tbody">
+            <!-- Diisi dinamis -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       SUB-VIEW: JURNAL MENGAJAR HARIAN
+       ========================================================================== -->
+  <div id="teacher-view-journals" class="content-body teacher-subview" style="display: none;">
+    <div class="dashboard-card">
+      <div class="dashboard-card-header">
+        <div class="card-title-group">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+          </svg>
+          <h3>Jurnal Mengajar Harian</h3>
+        </div>
+        <button class="btn-primary" onclick="openAddJournalModal()">+ Tulis Jurnal Baru</button>
+      </div>
+
+      <div class="data-table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Tanggal</th>
+              <th>Kelas</th>
+              <th>Mata Pelajaran</th>
+              <th>Materi Pokok / TP</th>
+              <th>Kegiatan Belajar</th>
+              <th>Refleksi Guru</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="table-journals-tbody">
+            <!-- Diisi dinamis -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       SUB-VIEW: PERANGKAT PEMBELAJARAN
+       ========================================================================== -->
+  <div id="teacher-view-resources" class="content-body teacher-subview" style="display: none;">
+    <div class="dashboard-card">
+      <div class="dashboard-card-header">
+        <div class="card-title-group">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+          </svg>
+          <h3>Pustaka & Perangkat Pembelajaran</h3>
+        </div>
+        <button class="btn-primary" onclick="openAddResourceModal()">+ Tambah Modul / RPP</button>
+      </div>
+
+      <!-- Tab Switcher: Perangkat Pribadi vs Pustaka Pusat Admin -->
+      <div style="display: flex; gap: 8px; margin-bottom: 16px;">
+        <button id="tab-my-resources" class="btn-primary" onclick="switchResourceTab('MY')">Perangkat Saya</button>
+        <button id="tab-central-resources" class="btn-secondary" onclick="switchResourceTab('CENTRAL')">Pustaka Pusat (Super Admin)</button>
+      </div>
+
+      <div class="data-table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Jenis Dokumen</th>
+              <th>Judul Dokumen</th>
+              <th>Tingkat Kelas</th>
+              <th>Mata Pelajaran</th>
+              <th>Semester</th>
+              <th>Tautan Google Drive</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="table-resources-tbody">
+            <!-- Diisi dinamis -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       SUB-VIEW: INPUT NILAI & ASESMEN
+       ========================================================================== -->
+  <div id="teacher-view-grades" class="content-body teacher-subview" style="display: none;">
+    <div class="dashboard-card">
+      <div class="dashboard-card-header">
+        <div class="card-title-group">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 20h9"/>
+            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+          </svg>
+          <h3>Penginputan Nilai Siswa (Formatif & Sumatif)</h3>
+        </div>
+        <button class="btn-primary" onclick="openCreateAssessmentModal()">+ Buat Kegiatan Asesmen</button>
+      </div>
+
+      <div style="display: flex; gap: 14px; margin-bottom: 16px; flex-wrap: wrap;">
+        <div>
+          <label style="font-size: 0.78rem; font-weight: 600; display: block; margin-bottom: 4px;">Pilih Kelas:</label>
+          <select id="grades-select-class" class="form-input" onchange="loadAssessmentsDropdown()"></select>
+        </div>
+        <div>
+          <label style="font-size: 0.78rem; font-weight: 600; display: block; margin-bottom: 4px;">Pilih Asesmen / Ulangan:</label>
+          <select id="grades-select-assessment" class="form-input" onchange="loadGradesTable()"></select>
+        </div>
+        <div style="margin-top: 20px;">
+          <button class="btn-primary" onclick="saveBatchGrades()">Simpan Nilai Siswa</button>
+        </div>
+      </div>
+
+      <div class="data-table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>NIS</th>
+              <th>Nama Lengkap Siswa</th>
+              <th style="width: 120px;">Nilai (0-100)</th>
+              <th>Catatan Capaian Kompetensi / Feedback</th>
+            </tr>
+          </thead>
+          <tbody id="table-grades-tbody">
+            <!-- Diisi dinamis -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       SUB-VIEW: ANALISIS HASIL BELAJAR
+       ========================================================================== -->
+  <div id="teacher-view-analysis" class="content-body teacher-subview" style="display: none;">
+    <div class="dashboard-card">
+      <div class="dashboard-card-header">
+        <div class="card-title-group">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="16" x2="12" y2="12"/>
+            <line x1="12" y1="8" x2="12.01" y2="8"/>
+          </svg>
+          <h3>Analisis Hasil Belajar & Rekomendasi Remidial</h3>
+        </div>
+        <select id="analysis-select-class" class="form-input" onchange="loadAnalysisData()" style="max-width: 220px;"></select>
+      </div>
+
+      <div class="metrics-grid-5" style="margin-bottom: 20px;">
+        <div class="metric-card">
+          <div class="metric-data">
+            <h3 id="analysis-avg-score">0</h3>
+            <p>Rata-rata Nilai Kelas</p>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-data">
+            <h3 id="analysis-max-score" style="color: var(--color-success);">0</h3>
+            <p>Nilai Tertinggi</p>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-data">
+            <h3 id="analysis-min-score" style="color: var(--color-danger);">0</h3>
+            <p>Nilai Terendah</p>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-data">
+            <h3 id="analysis-dist-a">0</h3>
+            <p>Predikat A (Sangat Baik)</p>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-data">
+            <h3 id="analysis-remedial-count" style="color: var(--color-warning);">0</h3>
+            <p>Perlu Pendampingan</p>
+          </div>
+        </div>
+      </div>
+
+      <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 10px;">Daftar Siswa yang Memerlukan Pendampingan Khusus (Remidial)</h4>
+      <div class="data-table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>NIS</th>
+              <th>Nama Siswa</th>
+              <th>Rata-rata Nilai</th>
+              <th>Rekomendasi Tindak Lanjut Guru</th>
+            </tr>
+          </thead>
+          <tbody id="table-remedial-tbody">
+            <!-- Diisi dinamis -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       SUB-VIEW: BUKU RAPOR SISWA
+       ========================================================================== -->
+  <div id="teacher-view-reports" class="content-body teacher-subview" style="display: none;">
+    <div class="dashboard-card">
+      <div class="dashboard-card-header">
+        <div class="card-title-group">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+          </svg>
+          <h3>Buku Rapor Siswa Kurikulum Merdeka</h3>
+        </div>
+        <div style="display: flex; gap: 10px;">
+          <select id="reports-select-class" class="form-input" onchange="loadReportsTable()"></select>
+          <select id="reports-select-semester" class="form-input" onchange="loadReportsTable()">
+            <option value="1">Semester 1 (Ganjil)</option>
+            <option value="2">Semester 2 (Genap)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="data-table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>NIS</th>
+              <th>Nama Siswa</th>
+              <th>L/P</th>
+              <th>Status Dokumen</th>
+              <th>Terakhir Disusun</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="table-reports-tbody">
+            <!-- Diisi dinamis -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>

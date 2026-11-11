@@ -1,0 +1,452 @@
+<!-- ==========================================================================
+     PORTAL ADMINISTRASI GURU SD - SHARED MODALS & INTERACTIVE COMPONENTS
+     ========================================================================== -->
+
+<!-- ==========================================================================
+     1. MODAL SESI PRESENSI QR CODE (Dinamis + Countdown Timer)
+     ========================================================================== -->
+<div id="modal-qr-session" class="modal-overlay">
+  <div class="modal-card" style="max-width: 480px; text-align: center;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+      <h3 style="font-size: 1.15rem; font-weight: 700;">Presensi Digital QR Code</h3>
+      <button style="background: none; border: none; font-size: 1.3rem; cursor: pointer;" onclick="closeModal('modal-qr-session')">&times;</button>
+    </div>
+
+    <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 16px;">
+      Tampilkan kode QR ini di depan kelas. Siswa yang memindai akan otomatis tercatat <strong style="color: var(--color-success);">HADIR</strong>.
+    </p>
+
+    <!-- Animated QR Display -->
+    <div style="display: flex; justify-content: center; margin: 16px 0;">
+      <div style="background: #FFFFFF; padding: 18px; border-radius: var(--border-radius-lg); border: 2px dashed #3B82F6; box-shadow: var(--shadow-hover);">
+        <svg id="qr-code-svg" viewBox="0 0 160 160" width="160" height="160">
+          <!-- Standar Mock QR Grid Interaktif -->
+          <rect x="0" y="0" width="160" height="160" fill="#FFFFFF"/>
+          <!-- Marker Sudut Kiri Atas -->
+          <rect x="10" y="10" width="40" height="40" fill="#1E3A8A"/>
+          <rect x="18" y="18" width="24" height="24" fill="#FFFFFF"/>
+          <rect x="24" y="24" width="12" height="12" fill="#1E3A8A"/>
+          <!-- Marker Sudut Kanan Atas -->
+          <rect x="110" y="10" width="40" height="40" fill="#1E3A8A"/>
+          <rect x="118" y="18" width="24" height="24" fill="#FFFFFF"/>
+          <rect x="124" y="24" width="12" height="12" fill="#1E3A8A"/>
+          <!-- Marker Sudut Kiri Bawah -->
+          <rect x="10" y="110" width="40" height="40" fill="#1E3A8A"/>
+          <rect x="18" y="118" width="24" height="24" fill="#FFFFFF"/>
+          <rect x="24" y="124" width="12" height="12" fill="#1E3A8A"/>
+          <!-- Random Data Blocks -->
+          <rect x="60" y="20" width="10" height="10" fill="#1E3A8A"/>
+          <rect x="80" y="30" width="10" height="10" fill="#1E3A8A"/>
+          <rect x="60" y="60" width="20" height="20" fill="#2563EB"/>
+          <rect x="90" y="60" width="10" height="10" fill="#1E3A8A"/>
+          <rect x="110" y="80" width="15" height="15" fill="#1E3A8A"/>
+          <rect x="60" y="100" width="15" height="15" fill="#1E3A8A"/>
+          <rect x="85" y="115" width="15" height="15" fill="#1E3A8A"/>
+          <rect x="110" y="110" width="20" height="10" fill="#1E3A8A"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Countdown Timer -->
+    <div style="background: #EFF6FF; border-radius: var(--border-radius-full); padding: 8px 16px; display: inline-flex; align-items: center; gap: 8px; margin: 0 auto 16px auto;">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#2563EB" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <span style="font-size: 0.85rem; font-weight: 700; color: #1E40AF;">Sisa Waktu Sesi: <span id="qr-timer-text">29:58</span></span>
+    </div>
+
+    <div style="border-top: 1px solid var(--border-color); padding-top: 14px; display: flex; flex-direction: column; gap: 10px;">
+      <!-- Simulator Scan Murid untuk Pengujian -->
+      <div style="background: var(--bg-app); padding: 10px; border-radius: var(--border-radius-md); text-align: left;">
+        <label style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 4px;">Uji Coba Pindai (Scan Siswa):</label>
+        <div style="display: flex; gap: 8px;">
+          <select id="sim-student-select" class="form-input" style="font-size: 0.8rem;"></select>
+          <button class="btn-primary" style="padding: 6px 12px; font-size: 0.8rem;" onclick="simulateStudentScan()">Scan!</button>
+        </div>
+      </div>
+
+      <button class="btn-secondary" style="width: 100%; justify-content: center;" onclick="closeModal('modal-qr-session')">Tutup Sesi Presensi</button>
+    </div>
+  </div>
+</div>
+
+<!-- ==========================================================================
+     2. MODAL TAMBAH / EDIT KELAS
+     ========================================================================== -->
+<div id="modal-class-form" class="modal-overlay">
+  <div class="modal-card">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <h3 id="class-modal-title">Tambah Kelas Baru</h3>
+      <button style="background: none; border: none; font-size: 1.3rem; cursor: pointer;" onclick="closeModal('modal-class-form')">&times;</button>
+    </div>
+
+    <form onsubmit="handleSaveClass(event)">
+      <input type="hidden" id="form-class-id">
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        <div>
+          <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">Nama Kelas</label>
+          <input type="text" id="form-class-name" required class="form-input" placeholder="Contoh: Kelas IV A">
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div>
+            <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">Tingkat Kelas (Grade)</label>
+            <select id="form-class-grade" class="form-input">
+              <option value="1">Kelas 1</option>
+              <option value="2">Kelas 2</option>
+              <option value="3">Kelas 3</option>
+              <option value="4" selected>Kelas 4</option>
+              <option value="5">Kelas 5</option>
+              <option value="6">Kelas 6</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">Tipe Kelas</label>
+            <select id="form-class-type" class="form-input">
+              <option value="REGULAR">Wali Kelas (Reguler)</option>
+              <option value="SUBJECT">Guru Mata Pelajaran</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div>
+            <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">Tahun Pelajaran</label>
+            <input type="text" id="form-class-year" class="form-input" value="2026/2027">
+          </div>
+          <div>
+            <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">Semester</label>
+            <select id="form-class-semester" class="form-input">
+              <option value="1">1 (Ganjil)</option>
+              <option value="2">2 (Genap)</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
+          <button type="button" class="btn-secondary" onclick="closeModal('modal-class-form')">Batal</button>
+          <button type="submit" class="btn-primary">Simpan Kelas</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ==========================================================================
+     3. MODAL TAMBAH / EDIT SISWA
+     ========================================================================== -->
+<div id="modal-student-form" class="modal-overlay">
+  <div class="modal-card">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <h3 id="student-modal-title">Tambah Siswa Baru</h3>
+      <button style="background: none; border: none; font-size: 1.3rem; cursor: pointer;" onclick="closeModal('modal-student-form')">&times;</button>
+    </div>
+
+    <form onsubmit="handleSaveStudent(event)">
+      <input type="hidden" id="form-student-id">
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        <div>
+          <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">Pilih Kelas</label>
+          <select id="form-student-class" required class="form-input"></select>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div>
+            <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">NIS (Nomor Induk Siswa)</label>
+            <input type="text" id="form-student-nis" required class="form-input" placeholder="Contoh: 20240401">
+          </div>
+          <div>
+            <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">NISN (Opsional)</label>
+            <input type="text" id="form-student-nisn" maxlength="10" class="form-input" placeholder="10 Digit">
+          </div>
+        </div>
+
+        <div>
+          <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">Nama Lengkap Siswa</label>
+          <input type="text" id="form-student-name" required class="form-input" placeholder="Contoh: Ahmad Fauzan">
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div>
+            <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">Jenis Kelamin</label>
+            <select id="form-student-gender" class="form-input">
+              <option value="L">Laki-laki (L)</option>
+              <option value="P">Perempuan (P)</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">Tanggal Lahir</label>
+            <input type="date" id="form-student-birth" class="form-input">
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
+          <button type="button" class="btn-secondary" onclick="closeModal('modal-student-form')">Batal</button>
+          <button type="submit" class="btn-primary">Simpan Siswa</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ==========================================================================
+     4. MODAL IMPOR SISWA DARI EXCEL (Pratinjau & Validasi Sebelum Simpan)
+     ========================================================================== -->
+<div id="modal-excel-import" class="modal-overlay">
+  <div class="modal-card" style="max-width: 720px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <h3>Impor Data Siswa Massal (Excel / CSV)</h3>
+      <button style="background: none; border: none; font-size: 1.3rem; cursor: pointer;" onclick="closeModal('modal-excel-import')">&times;</button>
+    </div>
+
+    <p style="font-size: 0.82rem; color: var(--text-muted);">
+      Pilih kelas tujuan, lalu salin (paste) data siswa atau unggah file. Format kolom wajib: <strong>NIS, NISN, Nama Lengkap, Jenis Kelamin (L/P), Tanggal Lahir (YYYY-MM-DD)</strong>.
+    </p>
+
+    <div>
+      <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">Kelas Tujuan:</label>
+      <select id="import-target-class" class="form-input" style="max-width: 250px;"></select>
+    </div>
+
+    <div>
+      <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">Paste Teks Data Siswa (Tab/Koma Dipisahkan):</label>
+      <textarea id="import-raw-text" class="form-input" rows="5" placeholder="20240401&#9;0012345678&#9;Ahmad Fauzan&#9;L&#9;2014-05-12
+20240402&#9;0012345679&#9;Aisyah Putri&#9;P&#9;2014-08-20"></textarea>
+    </div>
+
+    <div style="display: flex; gap: 10px;">
+      <button class="btn-secondary" onclick="parseExcelInputText()">Pratinjau (Preview) Data</button>
+      <button class="btn-secondary" onclick="loadSampleImportData()">Muat Data Contoh</button>
+    </div>
+
+    <!-- Tabel Pratinjau -->
+    <div id="import-preview-section" style="display: none; margin-top: 10px;">
+      <h4 style="font-size: 0.88rem; font-weight: 700; margin-bottom: 6px;">Pratinjau Hasil Pembacaan Data (<span id="import-count-text">0</span> Siswa):</h4>
+      <div class="data-table-container" style="max-height: 180px; overflow-y: auto;">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>NIS</th>
+              <th>NISN</th>
+              <th>Nama Siswa</th>
+              <th>L/P</th>
+              <th>Tgl Lahir</th>
+            </tr>
+          </thead>
+          <tbody id="import-preview-tbody"></tbody>
+        </table>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 14px;">
+        <button type="button" class="btn-secondary" onclick="closeModal('modal-excel-import')">Batal</button>
+        <button type="button" class="btn-primary" onclick="submitImportStudents()">Konfirmasi & Simpan ke Database</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==========================================================================
+     5. MODAL TULIS JURNAL MENGAJAR
+     ========================================================================== -->
+<div id="modal-journal-form" class="modal-overlay">
+  <div class="modal-card">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <h3>Tulis Jurnal Mengajar Harian</h3>
+      <button style="background: none; border: none; font-size: 1.3rem; cursor: pointer;" onclick="closeModal('modal-journal-form')">&times;</button>
+    </div>
+
+    <form onsubmit="handleSaveJournal(event)">
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div>
+            <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">Tanggal Pelaksanaan</label>
+            <input type="date" id="form-journal-date" required class="form-input">
+          </div>
+          <div>
+            <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">Kelas</label>
+            <select id="form-journal-class" required class="form-input"></select>
+          </div>
+        </div>
+
+        <div>
+          <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">Mata Pelajaran</label>
+          <select id="form-journal-subject" class="form-input"></select>
+        </div>
+
+        <div>
+          <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">Materi Pokok / Topik Pembelajaran</label>
+          <input type="text" id="form-journal-topic" required class="form-input" placeholder="Contoh: Bab 2 FPB dan KPK">
+        </div>
+
+        <div>
+          <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">Tujuan Pembelajaran (TP)</label>
+          <textarea id="form-journal-tp" class="form-input" rows="2" placeholder="Peserta didik mampu menghitung FPB dari dua bilangan cacah..."></textarea>
+        </div>
+
+        <div>
+          <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">Uraian Kegiatan Belajar</label>
+          <textarea id="form-journal-activities" class="form-input" rows="3" placeholder="1. Eksplorasi materi berkelompok&#10;2. Pengerjaan LKPD bilangan prima..."></textarea>
+        </div>
+
+        <div>
+          <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 4px;">Refleksi Guru & Catatan Khusus</label>
+          <textarea id="form-journal-reflection" class="form-input" rows="2" placeholder="85% siswa memahami konsep prima, 4 siswa membutuhkan bimbingan mandiri..."></textarea>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
+          <button type="button" class="btn-secondary" onclick="closeModal('modal-journal-form')">Batal</button>
+          <button type="submit" class="btn-primary">Simpan Jurnal</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ==========================================================================
+     6. MODAL PRATINJAU & CETAK RAPOR SISWA KURIKULUM MERDEKA
+     ========================================================================== -->
+<div id="modal-report-print" class="modal-overlay">
+  <div class="modal-card" style="max-width: 840px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;" class="no-print">
+      <h3>Pratinjau Lembar Rapor Siswa</h3>
+      <div style="display: flex; gap: 8px;">
+        <button class="btn-primary" onclick="window.print()">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          Cetak Dokumen / PDF
+        </button>
+        <button style="background: none; border: none; font-size: 1.3rem; cursor: pointer;" onclick="closeModal('modal-report-print')">&times;</button>
+      </div>
+    </div>
+
+    <!-- Lembar Dokumen Rapor Format Resmi Kemendikbud -->
+    <div id="report-printable-area" style="background: #FFFFFF; color: #000000; padding: 24px; border: 1px solid #CBD5E1; border-radius: 4px; font-family: 'Times New Roman', serif; line-height: 1.4;">
+      <div style="text-align: center; border-bottom: 2px solid #000000; padding-bottom: 12px; margin-bottom: 18px;">
+        <h4 style="font-size: 1.15rem; margin: 0; text-transform: uppercase;">LAPORAN HASIL BELAJAR (RAPOR)</h4>
+        <h5 style="font-size: 1rem; margin: 2px 0 0 0; text-transform: uppercase;">KURIKULUM MERDEKA</h5>
+        <p style="font-size: 0.9rem; margin: 2px 0 0 0;" id="rapor-school-header">SD NEGERI SUMBEREJO 04 KECAMATAN AMBULU</p>
+      </div>
+
+      <table style="width: 100%; font-size: 0.88rem; margin-bottom: 18px; border: none;">
+        <tr>
+          <td style="width: 18%;">Nama Peserta Didik</td>
+          <td style="width: 2%;">:</td>
+          <td style="width: 40%; font-weight: bold;" id="rapor-student-name">Ahmad Fauzan</td>
+          <td style="width: 18%;">Kelas</td>
+          <td style="width: 2%;">:</td>
+          <td style="width: 20%;" id="rapor-class-name">IV A</td>
+        </tr>
+        <tr>
+          <td>NIS / NISN</td>
+          <td>:</td>
+          <td id="rapor-student-nis">20240401 / 0012345678</td>
+          <td>Fase / Semester</td>
+          <td>:</td>
+          <td id="rapor-semester">Fase B / 1 (Ganjil)</td>
+        </tr>
+        <tr>
+          <td>Nama Sekolah</td>
+          <td>:</td>
+          <td id="rapor-school-name">SD Negeri Sumberejo 04</td>
+          <td>Tahun Pelajaran</td>
+          <td>:</td>
+          <td id="rapor-academic-year">2026/2027</td>
+        </tr>
+      </table>
+
+      <!-- Tabel Capaian Kompetensi -->
+      <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-bottom: 18px;">
+        <thead>
+          <tr style="background: #F1F5F9;">
+            <th style="border: 1px solid #000; padding: 6px; width: 5%;">No</th>
+            <th style="border: 1px solid #000; padding: 6px; width: 25%;">Mata Pelajaran</th>
+            <th style="border: 1px solid #000; padding: 6px; width: 12%;">Nilai Akhir</th>
+            <th style="border: 1px solid #000; padding: 6px; width: 58%;">Capaian Kompetensi</th>
+          </tr>
+        </thead>
+        <tbody id="rapor-tbody-subjects">
+          <tr>
+            <td style="border: 1px solid #000; padding: 6px; text-align: center;">1</td>
+            <td style="border: 1px solid #000; padding: 6px;">Pendidikan Pancasila</td>
+            <td style="border: 1px solid #000; padding: 6px; text-align: center; font-weight: bold;">88</td>
+            <td style="border: 1px solid #000; padding: 6px;">Menunjukkan penguasaan sangat baik dalam memahami makna sila-sila Pancasila dan penerapannya di lingkungan sekolah.</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #000; padding: 6px; text-align: center;">2</td>
+            <td style="border: 1px solid #000; padding: 6px;">Bahasa Indonesia</td>
+            <td style="border: 1px solid #000; padding: 6px; text-align: center; font-weight: bold;">85</td>
+            <td style="border: 1px solid #000; padding: 6px;">Menunjukkan penguasaan baik dalam membaca teks narasi dan menyusun kalimat majemuk setara dengan runtut.</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #000; padding: 6px; text-align: center;">3</td>
+            <td style="border: 1px solid #000; padding: 6px;">Matematika</td>
+            <td style="border: 1px solid #000; padding: 6px; text-align: center; font-weight: bold;">92</td>
+            <td style="border: 1px solid #000; padding: 6px;">Sangat mahir dalam menyelesaikan permasalahan bilangan cacah besar dan pengenalan pecahan desimal.</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #000; padding: 6px; text-align: center;">4</td>
+            <td style="border: 1px solid #000; padding: 6px;">IPAS</td>
+            <td style="border: 1px solid #000; padding: 6px; text-align: center; font-weight: bold;">86</td>
+            <td style="border: 1px solid #000; padding: 6px;">Memahami siklus daur hidup hewan dan perubahan bentuk energi di sekitar secara kontekstual.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Tabel Kehadiran & Catatan -->
+      <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 16px; margin-bottom: 24px;">
+        <table style="border-collapse: collapse; font-size: 0.85rem;">
+          <tr style="background: #F1F5F9;"><th colspan="2" style="border: 1px solid #000; padding: 4px;">Ketidakhadiran</th></tr>
+          <tr><td style="border: 1px solid #000; padding: 4px;">Sakit</td><td style="border: 1px solid #000; padding: 4px; text-align: center;" id="rapor-att-sick">1 hari</td></tr>
+          <tr><td style="border: 1px solid #000; padding: 4px;">Izin</td><td style="border: 1px solid #000; padding: 4px; text-align: center;" id="rapor-att-permission">0 hari</td></tr>
+          <tr><td style="border: 1px solid #000; padding: 4px;">Tanpa Keterangan</td><td style="border: 1px solid #000; padding: 4px; text-align: center;" id="rapor-att-absent">0 hari</td></tr>
+        </table>
+
+        <div style="border: 1px solid #000; padding: 8px; font-size: 0.85rem;">
+          <strong>Catatan Wali Kelas:</strong>
+          <p id="rapor-homeroom-notes" style="margin-top: 4px; font-style: italic;">
+            "Tingkatkan terus keaktifan dalam diskusi dan pertahankan ketelitian belajarmu. Selamat atas capaian prestasi di semester ini!"
+          </p>
+        </div>
+      </div>
+
+      <!-- Tanda Tangan -->
+      <div style="display: flex; justify-content: space-between; text-align: center; font-size: 0.85rem; margin-top: 30px;">
+        <div>
+          <p>Mengetahui,<br>Orang Tua / Wali Murid</p>
+          <div style="height: 50px;"></div>
+          <p>( ................................................. )</p>
+        </div>
+        <div>
+          <p id="rapor-date-place">Ambulu, 18 Desember 2026<br>Guru Kelas,</p>
+          <div style="height: 50px;"></div>
+          <p style="font-weight: bold; text-decoration: underline;" id="rapor-teacher-sign">Budi Santoso, S.Pd.</p>
+          <span style="font-size: 0.75rem;" id="rapor-teacher-nip">NIP. 19850101 201001 1 012</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==========================================================================
+     GLOBAL TOAST NOTIFICATIONS CONTAINER
+     ========================================================================== -->
+<div id="toast-container" class="toast-container"></div>
+
+<style>
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #report-printable-area, #report-printable-area * {
+    visibility: visible;
+  }
+  #report-printable-area {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    border: none;
+    padding: 0;
+  }
+  .no-print {
+    display: none !important;
+  }
+}
+</style>

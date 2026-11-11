@@ -1,0 +1,415 @@
+<!-- ==========================================================================
+     PORTAL ADMINISTRASI GURU SD - SUPER ADMIN PORTAL VIEWS
+     Khusus Operator Platform: Verifikasi Guru, Direktori Sekolah, Pustaka Pusat, Audit Log
+     ========================================================================== -->
+<div id="portal-admin" style="display: none; width: 100%;">
+
+  <!-- ==========================================================================
+       SUB-VIEW: DASHBOARD PLATFORM (SUPER ADMIN)
+       ========================================================================== -->
+  <div id="admin-view-dashboard" class="content-body admin-subview">
+    <!-- Platform Stats Bar -->
+    <div class="metrics-grid-5">
+      <div class="metric-card" onclick="switchAdminMenu('verification')">
+        <div class="metric-icon-circle blue">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+          </svg>
+        </div>
+        <div class="metric-data">
+          <h3 id="admin-stat-total-teachers">0</h3>
+          <p>Total Guru Terdaftar</p>
+        </div>
+      </div>
+
+      <div class="metric-card" onclick="switchAdminMenu('teachers')">
+        <div class="metric-icon-circle green">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+            <polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+        </div>
+        <div class="metric-data">
+          <h3 id="admin-stat-active-teachers">0</h3>
+          <p>Guru Aktif</p>
+        </div>
+      </div>
+
+      <div class="metric-card" onclick="switchAdminMenu('verification')">
+        <div class="metric-icon-circle orange">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+        </div>
+        <div class="metric-data">
+          <h3 id="admin-stat-pending-teachers" style="color: var(--color-warning);">0</h3>
+          <p>Menunggu Verifikasi</p>
+        </div>
+      </div>
+
+      <div class="metric-card" onclick="switchAdminMenu('schools')">
+        <div class="metric-icon-circle purple">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 21h18M5 21V7l7-4 7 4v14"/>
+          </svg>
+        </div>
+        <div class="metric-data">
+          <h3 id="admin-stat-total-schools">0</h3>
+          <p>Sekolah Binaan</p>
+        </div>
+      </div>
+
+      <div class="metric-card" onclick="switchAdminMenu('resources')">
+        <div class="metric-icon-circle cyan">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+          </svg>
+        </div>
+        <div class="metric-data">
+          <h3 id="admin-stat-resources">0</h3>
+          <p>Pustaka Pusat (Drive)</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Antrean Cepat Verifikasi Guru -->
+    <div class="dashboard-card" style="margin-top: 20px;">
+      <div class="dashboard-card-header">
+        <div class="card-title-group">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="8.5" cy="7" r="4"/>
+            <polyline points="17 11 19 13 23 9"/>
+          </svg>
+          <h3>Antrean Verifikasi Guru Terbaru</h3>
+        </div>
+        <button class="card-action-btn" onclick="switchAdminMenu('verification')">Buka Halaman Verifikasi &rarr;</button>
+      </div>
+
+      <div class="data-table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Nama Guru</th>
+              <th>Email Akun</th>
+              <th>Nama Sekolah & NPSN</th>
+              <th>Jenis Guru</th>
+              <th>Tanggal Daftar</th>
+              <th>Aksi Cepat</th>
+            </tr>
+          </thead>
+          <tbody id="admin-quick-pending-tbody">
+            <!-- Diisi dinamis -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Riwayat Aktivitas Log Audit Sistem -->
+    <div class="dashboard-card" style="margin-top: 20px;">
+      <div class="dashboard-card-header">
+        <div class="card-title-group">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          <h3>Jejak Audit Sistem Terbaru (Audit Trail)</h3>
+        </div>
+        <button class="card-action-btn" onclick="switchAdminMenu('audit')">Semua Log &rarr;</button>
+      </div>
+
+      <div class="data-table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Waktu</th>
+              <th>Pelaku</th>
+              <th>Role</th>
+              <th>Aksi</th>
+              <th>Entitas</th>
+              <th>Detail Aktivitas</th>
+            </tr>
+          </thead>
+          <tbody id="admin-recent-audit-tbody">
+            <!-- Diisi dinamis -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       SUB-VIEW: VERIFIKASI GURU (APPROVAL WORKFLOW)
+       ========================================================================== -->
+  <div id="admin-view-verification" class="content-body admin-subview" style="display: none;">
+    <div class="dashboard-card">
+      <div class="dashboard-card-header">
+        <div class="card-title-group">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="8.5" cy="7" r="4"/>
+            <polyline points="17 11 19 13 23 9"/>
+          </svg>
+          <h3>Pusat Verifikasi Pendaftaran Guru</h3>
+        </div>
+      </div>
+
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
+        Pastikan NPSN dan keabsahan surat tugas atau identitas guru sebelum memberikan persetujuan. Guru yang disetujui akan langsung memperoleh status <strong>ACTIVE</strong>.
+      </p>
+
+      <div class="data-table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Nama Guru</th>
+              <th>Email Akun</th>
+              <th>NIP</th>
+              <th>Asal Sekolah</th>
+              <th>NPSN</th>
+              <th>Kecamatan</th>
+              <th>Status</th>
+              <th>Tindakan Keputusan</th>
+            </tr>
+          </thead>
+          <tbody id="admin-full-pending-tbody">
+            <!-- Diisi dinamis -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       SUB-VIEW: MANAJEMEN GURU (ALL TEACHERS)
+       ========================================================================== -->
+  <div id="admin-view-teachers" class="content-body admin-subview" style="display: none;">
+    <div class="dashboard-card">
+      <div class="dashboard-card-header">
+        <div class="card-title-group">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+          </svg>
+          <h3>Manajemen Akun Guru</h3>
+        </div>
+      </div>
+
+      <div class="data-table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Nama Lengkap</th>
+              <th>Email</th>
+              <th>Sekolah</th>
+              <th>Jenis Guru</th>
+              <th>Status Akun</th>
+              <th>Terakhir Login</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="admin-teachers-tbody">
+            <!-- Diisi dinamis -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       SUB-VIEW: DATA SEKOLAH (DIREKTORI SEKOLAH)
+       ========================================================================== -->
+  <div id="admin-view-schools" class="content-body admin-subview" style="display: none;">
+    <div class="dashboard-card">
+      <div class="dashboard-card-header">
+        <div class="card-title-group">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 21h18M5 21V7l7-4 7 4v14"/>
+          </svg>
+          <h3>Direktori Sekolah Dasar Binaan</h3>
+        </div>
+        <button class="btn-primary" onclick="openAddSchoolModal()">+ Tambah Sekolah</button>
+      </div>
+
+      <div class="data-table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>NPSN</th>
+              <th>Nama Sekolah</th>
+              <th>Jenjang</th>
+              <th>Kecamatan</th>
+              <th>Kabupaten</th>
+              <th>Status Verifikasi</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="admin-schools-tbody">
+            <!-- Diisi dinamis -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       SUB-VIEW: PUSTAKA PERANGKAT AJAR PUSAT (GOOGLE DRIVE)
+       ========================================================================== -->
+  <div id="admin-view-resources" class="content-body admin-subview" style="display: none;">
+    <div class="dashboard-card">
+      <div class="dashboard-card-header">
+        <div class="card-title-group">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+          </svg>
+          <h3>Pustaka Perangkat Ajar Pusat (Google Drive)</h3>
+        </div>
+        <button class="btn-primary" onclick="openAddCentralResourceModal()">+ Tambah Berkas Drive</button>
+      </div>
+
+      <div class="data-table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Jenis</th>
+              <th>Judul Dokumen</th>
+              <th>Kelas</th>
+              <th>Mata Pelajaran</th>
+              <th>Semester</th>
+              <th>Tautan Google Drive</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="admin-resources-tbody">
+            <!-- Diisi dinamis -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       SUB-VIEW: PENGUMUMAN PLATFORM
+       ========================================================================== -->
+  <div id="admin-view-announcements" class="content-body admin-subview" style="display: none;">
+    <div class="dashboard-card">
+      <div class="dashboard-card-header">
+        <div class="card-title-group">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+          </svg>
+          <h3>Papan Pengumuman Platform</h3>
+        </div>
+        <button class="btn-primary" onclick="openCreateAnnouncementModal()">+ Terbitkan Pengumuman</button>
+      </div>
+
+      <div class="data-table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Judul Pengumuman</th>
+              <th>Target Audiens</th>
+              <th>Tanggal Tayang</th>
+              <th>Status</th>
+              <th>Dibuat Oleh</th>
+            </tr>
+          </thead>
+          <tbody id="admin-announcements-tbody">
+            <!-- Diisi dinamis -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       SUB-VIEW: AUDIT LOGS LENGKAP
+       ========================================================================== -->
+  <div id="admin-view-audit" class="content-body admin-subview" style="display: none;">
+    <div class="dashboard-card">
+      <div class="dashboard-card-header">
+        <div class="card-title-group">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          <h3>Rekam Jejak Audit Sistem (Audit Log Penuh)</h3>
+        </div>
+      </div>
+
+      <div class="data-table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Timestamp</th>
+              <th>Actor UID / Email</th>
+              <th>Role</th>
+              <th>Action</th>
+              <th>Entity</th>
+              <th>Details</th>
+            </tr>
+          </thead>
+          <tbody id="admin-full-audit-tbody">
+            <!-- Diisi dinamis -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       SUB-VIEW: PENGATURAN PLATFORM
+       ========================================================================== -->
+  <div id="admin-view-settings" class="content-body admin-subview" style="display: none;">
+    <div class="dashboard-card" style="max-width: 700px;">
+      <div class="dashboard-card-header">
+        <div class="card-title-group">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+          <h3>Pengaturan Parameter Global Platform</h3>
+        </div>
+      </div>
+
+      <form onsubmit="savePlatformSettings(event)">
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <div>
+            <label style="font-size: 0.82rem; font-weight: 600; display: block; margin-bottom: 4px;">Tahun Pelajaran Aktif</label>
+            <input type="text" id="setting-academic-year" class="form-input" value="2026/2027">
+          </div>
+          <div>
+            <label style="font-size: 0.82rem; font-weight: 600; display: block; margin-bottom: 4px;">Semester Aktif</label>
+            <select id="setting-semester" class="form-input">
+              <option value="1">1 (Ganjil)</option>
+              <option value="2">2 (Genap)</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size: 0.82rem; font-weight: 600; display: block; margin-bottom: 4px;">Wilayah Kecamatan Utama</label>
+            <input type="text" id="setting-district" class="form-input" value="Kecamatan Ambulu">
+          </div>
+          <div>
+            <label style="font-size: 0.82rem; font-weight: 600; display: block; margin-bottom: 4px;">Kabupaten</label>
+            <input type="text" id="setting-regency" class="form-input" value="Kabupaten Jember">
+          </div>
+          <div>
+            <label style="font-size: 0.82rem; font-weight: 600; display: block; margin-bottom: 4px;">Mode Pemeliharaan (Maintenance)</label>
+            <select id="setting-maintenance" class="form-input">
+              <option value="FALSE">Nonaktif (Normal)</option>
+              <option value="TRUE">Aktif (Maintenance)</option>
+            </select>
+          </div>
+
+          <div style="margin-top: 10px;">
+            <button type="submit" class="btn-primary">Simpan Pengaturan</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>
